@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+  <h1 class="text-center">Task Manager</h1>
+
+  <!-- Add Task Form -->
+  <form action="/add" method="POST" class="mb-4">
+    <input type="text" name="title" class="form-control" placeholder="Enter new task..." required>
+    <button type="submit" class="btn btn-primary mt-2">Add Task</button>
+  </form>
+
+  <!-- Task List -->
+  <ul class="list-group">
+    {% for task in tasks %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="{% if task.completed %}text-decoration-line-through{% endif %}">
+          {{ task.title }}
+        </span>
+        <div>
+          <a href="{{ url_for('complete_task', task_id=task.id) }}" class="btn btm-success btn-sm">✓</a>
+          <a href="{{ url_for('delete_task', task_id=task.id) }}" class="btn btn-danger btn-sm">🗑</a>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+</body>
+</html>
